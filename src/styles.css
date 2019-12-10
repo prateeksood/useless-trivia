@@ -1,0 +1,170 @@
+*{
+    padding:0;
+    margin:0;
+    font-family:  Helvetica, sans-serif, Arial;
+}
+.header-container{
+    color:white;
+    font-size:4rem;
+    background:#29a19c;
+    padding:5px;
+    text-align: center;
+}
+.timmer{
+    text-align: center;
+    font-size: 5rem;
+    color:white;
+    /* transition: all 2s ; */
+}
+.loader-bar{
+    width:90%;
+    max-width: 800px;
+    margin: auto;
+    font-size: 3rem;
+    color:#393E46;
+    background:#29A19C;
+    padding: 10px;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.score{
+    font-size: 3rem;
+    color:#393E46;
+}
+.loader{
+    color:white;
+    background:#29A19C;
+    width:40px;
+    height:40px;
+    border-radius: 50px;
+    border: 7px solid #f3f3f3;
+    border-top: 7px solid #393E46;
+    animation:loader 2s infinite;
+}
+@keyframes loader{
+    100%{
+        transform: rotateZ(360deg);
+    }
+}
+.question-card{
+    width:90%;
+    max-width: 800px;
+    margin: auto;
+    background:#393E46;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+.question{
+    margin-top:30px;
+    justify-content: space-around;
+    align-items: center;
+    color:#fff;
+    font-size:2rem;
+}
+.options{
+    display: flex;
+    justify-content: space-around;
+    margin:auto auto;
+    flex-wrap: wrap;
+}
+.options button{
+    min-width: 300px;
+    margin:20px 20px;
+    padding:20px;
+    background: #29A19C;
+    border: 0px ;
+    color:#fff;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 10px;;
+}
+button:disabled{
+    cursor: not-allowed;
+    background:rgb(221, 243, 242) ;
+    color:grey;
+    border:2px solid rgb(221, 243, 242);
+}
+.message{
+    width:90%;
+    max-width: 800px;
+    margin: auto;
+    font-size:2rem;
+    color:#393E46;
+    background:#29A19C;
+    padding: 10px;
+    text-align: center;
+}
+.info{
+    color:white;
+}
+.error{
+    color:red;
+}
+.success{
+    color:green;
+}
+.last-screen{
+    background:#29A19C ;
+    height:100vh;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    animation:lastScreen 10s infinite;
+}
+@keyframes lastScreen{
+    50%{
+        background: #393E46;
+    }
+}
+.last-screen button{
+    width:300px;
+    padding:10px;
+    color:black;
+    font-weight: bold;
+    background:#d3d849;
+    border:none;
+    border-radius: 50px;;
+    animation:lastScreenButton 10s infinite;
+}
+
+@keyframes lastScreenButton{
+    50%{
+        filter:invert(1);
+    }
+}
+
+.game-over{
+    font-size:4rem;
+    color:red;
+    animation:gameOver 10s infinite;
+    text-align: center;
+}
+@keyframes gameOver{
+    50%{
+        transform: scale(.8);
+        filter:invert(1);
+
+    }
+}
+.final-score{
+    text-align:center;
+    font-size:2rem;
+    color:black;
+    margin-top:20px;
+    animation:finalScore 10s infinite;
+    transition: all 1s ease;
+    font-weight: 400;
+    font-weight: 800;
+
+}
+@keyframes finalScore{
+    50%{
+        transform: rotateX(100deg);
+        filter:invert(1);
+
+    }
+}
