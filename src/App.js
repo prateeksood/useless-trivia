@@ -6,21 +6,28 @@ import MainBody from './UIComponents/MainBody'
 import GameOver from './UIComponents/GameOver'
 
 const App=()=>{
-    const [count,setCount]=useState(1);
-    const [isLoading,setIsloading]=useState(true);
-    const [isAnswered,setIsAnswered]=useState(false);
-    const [score,setScore]=useState(0);
-    const [timeLeft,setTimeLeft]=useState(NaN);
-    const [question,setQuestion]=useState('');
-    const [msg,setMsg]=useState('Choose an option');
-    const [msgClass,setMsgClass]=useState('info');
-    const [correct,setCorrect]=useState('');
-    const [incorrect1,setIncorrect1]=useState('');
-    const [incorrect2,setIncorrect2]=useState('');
-    const [incorrect3,setIncorrect3]=useState('');
-    const [options,setOptions]=useState([]);
-    const [correctIndex,setCorrectIndex]=useState();
-    const [buttonStyle,setButtonStyle]=useState([]);
+
+    // State Variables
+
+    const [count,setCount]=useState(1),
+          [isLoading,setIsloading]=useState(true),
+          [score,setScore]=useState(0),
+          [timeLeft,setTimeLeft]=useState(NaN),
+          [question,setQuestion]=useState(''),
+          [msg,setMsg]=useState('Choose an option'),
+          [msgClass,setMsgClass]=useState('info'),
+          [correct,setCorrect]=useState(''),
+          [incorrect1,setIncorrect1]=useState(''),
+          [incorrect2,setIncorrect2]=useState(''),
+          [incorrect3,setIncorrect3]=useState(''),
+          [options,setOptions]=useState([]),
+          [correctIndex,setCorrectIndex]=useState(),
+          [buttonStyle,setButtonStyle]=useState([]);
+
+    /*
+    
+            LOAD QUESTION DATA FROM API
+    */
 
     useEffect(()=>{
             fetch('https://opentdb.com/api.php?category=18&amount=1&type=multiple')
@@ -36,7 +43,6 @@ const App=()=>{
                 setTimeLeft(30);
                 setMsgClass('info');
                 setMsg('Choose an option');
-                setIsAnswered(false);
             })
             .catch(err=>{
                 console.log(err);
@@ -45,9 +51,18 @@ const App=()=>{
              return(()=>clearInterval(timmer));
     },[count]);
    
+    /*
+    
+            RENDER OPTIONS ONCE THEY ARE FETCHED
+    */
+
     useEffect(()=>{
         let optionsArr=[];
+        /*
+        
+            RANDOMISE THE FETCHED OPTIONS IN AN ARRAY
 
+        */
         const createRandArr=(itemC,item2,item3,item4)=>{
             let index1=(Math.random()*(3)).toFixed();
             optionsArr[index1]=itemC;
@@ -73,15 +88,22 @@ const App=()=>{
         setButtonStyle([]);
         
     },[correct,incorrect1,incorrect2,incorrect3]);
+
+
+
     let decodeHTML = (html)=> {
-        var txt = document.createElement('textarea');
+        let txt = document.createElement('textarea');
         txt.innerHTML = html;
         return txt.value;
     };
+    /*
+    
+            HANDLE CLICK ON OPTIONS        
+
+    */
     const handleAnswer=(selectedOption)=>{
         let styles=[];
         setIsloading(true);
-        setIsAnswered(true);
 
         if(selectedOption===correct){
             setTimeLeft(NaN);
@@ -95,72 +117,100 @@ const App=()=>{
             setMsg('Incorrect !');
             
         }
-        // styles on click
-        styles[correctIndex]={color:'green',borderColor:'green'}
+        /*
+    
+            CHANGE STYLES ON CLICK
+                *create array of styles based on correct index     
+
+        */
+        styles[correctIndex]={color:'green',borderColor:'green',boxShadow: '5px 4px 10px green'}
         let index1=correctIndex;
         while(index1===correctIndex){
             index1=(Math.random()*(3)).toFixed();
         }
-        styles[index1]={color:'red',borderColor:'red'}
+        styles[index1]={color:'red',borderColor:'red',boxShadow: '5px 4px 10px red'}
         let index2=correctIndex;
         while(index2===correctIndex||index2===index1){
             index2=(Math.random()*(3)).toFixed();
         }
-        styles[index2]={color:'red',borderColor:'red'}
+        styles[index2]={color:'red',borderColor:'red',boxShadow: '5px 4px 10px red'}
 
         let index3=(Math.random()*(3)).toFixed();
         while(index3===correctIndex||index3===index1||index3===index2){
             index3=(Math.random()*(3)).toFixed();
         }
-        styles[index3]={color:'red',borderColor:'red'}
+        styles[index3]={color:'red',borderColor:'red',boxShadow: '5px 4px 10px red'}
         setButtonStyle(styles);
 
         setTimeout(()=>{
             setCount(prev=>prev+1);
         },3000);
     }
+    /*
+    
+            HANDLE IF TIME RUNS OUT
+
+    */
     if(timeLeft===0)
     {
         let styles=[];
         setIsloading(true);
-        setIsAnswered(true);
         setTimeLeft(NaN);
         setMsgClass('error');
         setMsg('Time Ran Out !');
-        // styles on timeOut
-        styles[correctIndex]={color:'green',borderColor:'green'}
+        /*
+        
+                CHANGE STYLES ON CLICK
+                *create array of styles based on correct index
+
+        */
+        styles[correctIndex]={color:'green',borderColor:'green',boxShadow: '5px 4px 10px green'}
         let index1=correctIndex;
         while(index1===correctIndex){
             index1=(Math.random()*(3)).toFixed();
         }
-        styles[index1]={color:'red',borderColor:'red'}
+        styles[index1]={color:'red',borderColor:'red',boxShadow: '5px 4px 10px red'}
         let index2=correctIndex;
         while(index2===correctIndex||index2===index1){
             index2=(Math.random()*(3)).toFixed();
         }
-        styles[index2]={color:'red',borderColor:'red'}
+        styles[index2]={color:'red',borderColor:'red',boxShadow: '5px 4px 10px red'}
 
         let index3=(Math.random()*(3)).toFixed();
         while(index3===correctIndex||index3===index1||index3===index2){
             index3=(Math.random()*(3)).toFixed();
         }
-        styles[index3]={color:'red',borderColor:'red'}
+        styles[index3]={color:'red',borderColor:'red',boxShadow: '5px 4px 10px red'}
         setButtonStyle(styles);
         setTimeout(()=>{
         setCount(prev=>prev+1);
         },3000);
     }
+    /*
+        
+            HANDLE PLAY AGAIN BUTTON CLICK
+
+    */
     const playAgain=()=>{
         setCount(1);
         setScore(0);
+        setTimeLeft(NaN);
     }
+    /*
+        
+        IF QUESTION COUNT REACHES GREATER THAN 10 MARK GAME OVER
 
+    */
     if(count>10){
         return(<GameOver score={score} playAgain={playAgain}/>)
     }else{
-        if(isAnswered){
+        /*
+        
+            ELSE RENDER MAIN GAME
+
+        */
             return(
-                <div style={{backgroundColor:'rgb(9, 10, 12)',height:'100vh'}}>
+                <div className='main-container'>
                     <Header/>
                     <Timer timeLeft={timeLeft}/>
                     <Score score={score*10} count={count} isLoading={isLoading}/>
@@ -178,28 +228,6 @@ const App=()=>{
                     />
                 </div> 
             )
-            
-        }else{
-            return(
-                <div style={{backgroundColor:'rgb(9, 10, 12)',height:'100vh'}}>
-                    <Header/>
-                    <Timer timeLeft={timeLeft}/>
-                    <Score score={score*10} count={count} isLoading={isLoading}/>
-                    <MainBody 
-                    isLoading={isLoading} 
-                    question={question} 
-                    options={options} 
-                    correctOption={correct} 
-                    handleAnswer={handleAnswer} 
-                    msg={msg}
-                    count={count}
-                    msgClass={msgClass}
-                    correctIndex={correctIndex}
-                    buttonStyle={buttonStyle}
-                    />
-                </div>
-            )
-        }
     }
 
     
