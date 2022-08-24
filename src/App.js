@@ -1,9 +1,9 @@
 import React,{useState,useEffect} from 'react'
-import Header from './UIComponents/Header'
-import Timer from './UIComponents/Timer'
-import Score from './UIComponents/Score'
-import MainBody from './UIComponents/MainBody'
-import GameOver from './UIComponents/GameOver'
+import Header from './Components/Header'
+import Timer from './Components/Timer'
+import Score from './Components/Score'
+import MainBody from './Components/MainBody'
+import GameOver from './Components/GameOver'
 
 const App=()=>{
 
