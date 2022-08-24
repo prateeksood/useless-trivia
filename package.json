@@ -12,6 +12,7 @@
     "react-scripts": "3.3.0"
   },
   "scripts": {
+    "heroku-postbuild": "npm install && npm run build",
     "start": "react-scripts start",
     "startServer":"node index.js",
     "build": "react-scripts build",
